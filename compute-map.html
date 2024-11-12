@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compute Map Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/gh/mennem-claycorp/compute-map/dist/os-map.min.js" defer></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        header h1 {
+            font-size: 2.5em;
+            color: #333;
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #555;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+            margin-top: 40px;
+            color: #777;
+        }
+        #map-container {
+            height: 500px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            overflow: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Compute Map Project</h1>
+    </header>
+    <main>
+        <section>
+            <h2>Overview</h2>
+            <p>The Compute Map project leverages Mapbox to display data center data on an interactive map. This map provides insights into various data center locations and their capabilities, helping users understand the distribution and details of data centers around the world.</p>
+        </section>
+        <section>
+            <h2>Configuration</h2>
+            <p>Change how your map is rendered by editing the options below:</p>
+            <p>Map Style:
+              <select id="map-style-selector">
+                <option value="mapbox://styles/mapbox/light-v11" selected>Default (Light)</option>
+                <option value="mapbox://styles/mapbox/streets-v11">Streets</option>
+                <option value="mapbox://styles/mapbox/outdoors-v11">Outdoors</option>
+                <option value="mapbox://styles/mapbox/light-v10">Light</option>
+                <option value="mapbox://styles/mapbox/dark-v10">Dark</option>
+                <option value="mapbox://styles/mapbox/satellite-v9">Satellite</option>
+                <option value="mapbox://styles/mapbox/satellite-streets-v11">Satellite Streets</option>
+                <option value="mapbox://styles/mapbox/navigation-day-v1">Navigation Day</option>
+                <option value="mapbox://styles/mapbox/navigation-night-v1">Navigation Night</option>
+              </select>
+            </p>
+            <p>Latitude: <input type="number" id="map-lat" step="0.0001" value="39.8283"></p>
+            <p>Longitude: <input type="number" id="map-lng" step="0.0001" value="-98.5795"></p>
+            <p>Zoom: <input type="number" id="map-zoom" min="0" max="20" value="4"></p>
+            <p>API Key: <input type="text" id="map-api-key" value="pk.eyJ1IjoiaGVnbHVuZHAiLCJhIjoiY20zM3d6ZXNwMW84MDJxcHo3MGIzeHhidyJ9.Fm5XqanmBCKyrQai8EaegA"></p>
+            <p>Width (px): <input type="number" id="map-width" value="900"></p>
+            <p>Height (px): <input type="number" id="map-height" value="500"></p>
+            <button id="update-map">Update Map</button>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const styleSelector = document.getElementById('map-style-selector');
+                    const latInput = document.getElementById('map-lat');
+                    const lngInput = document.getElementById('map-lng');
+                    const zoomInput = document.getElementById('map-zoom');
+                    const apiKeyInput = document.getElementById('map-api-key');
+                    const widthInput = document.getElementById('map-width');
+                    const heightInput = document.getElementById('map-height');
+                    const updateButton = document.getElementById('update-map');
+                    const mapContainer = document.getElementById('map-container');
+                    const embedCodeBlock = document.getElementById('embed-code');
+                    let mapElement = document.querySelector('os-map');
+
+                    updateButton.addEventListener('click', function() {
+                        const newMapElement = document.createElement('os-map');
+                        newMapElement.setAttribute('data-os-key', apiKeyInput.value);
+                        newMapElement.setAttribute('data-os-endpoint', mapElement.getAttribute('data-os-endpoint'));
+                        newMapElement.setAttribute('data-os-map-lat', latInput.value);
+                        newMapElement.setAttribute('data-os-map-lng', lngInput.value);
+                        newMapElement.setAttribute('data-os-map-zoom', zoomInput.value);
+                        newMapElement.setAttribute('data-os-map-style', styleSelector.value);
+                        
+                        mapContainer.style.width = widthInput.value + 'px';
+                        mapContainer.style.height = heightInput.value + 'px';
+                        mapContainer.innerHTML = '';
+                        mapContainer.appendChild(newMapElement);
+                        mapElement = newMapElement;
+
+                        // Update embed code
+                        embedCodeBlock.textContent = `&lt;os-map 
+  data-os-key=&quot;${apiKeyInput.value}&quot;
+  data-os-endpoint=&quot;${mapElement.getAttribute('data-os-endpoint')}&quot;
+  data-os-map-lat=&quot;${latInput.value}&quot;
+  data-os-map-lng=&quot;${lngInput.value}&quot;
+  data-os-map-zoom=&quot;${zoomInput.value}&quot;
+  data-os-map-style=&quot;${styleSelector.value}&quot;
+  style=&quot;width: ${widthInput.value}px; height: ${heightInput.value}px;&quot;&gt;
+&lt;/os-map&gt;`;
+                    });
+                });
+            </script>
+        </section>
+        <section>
+            <h2>Embed Code</h2>
+            <p>Copy the code below to embed this map on your own site:</p>
+            <pre id="embed-code">&lt;os-map 
+  data-os-key=&quot;pk.eyJ1IjoiaGVnbHVuZHAiLCJhIjoiY20zM3d6ZXNwMW84MDJxcHo3MGIzeHhidyJ9.Fm5XqanmBCKyrQai8EaegA&quot;
+  data-os-endpoint=&quot;https://cdn.jsdelivr.net/gh/mennem-claycorp/compute-map/src/locations.json&quot;
+  data-os-map-lat=&quot;39.8283&quot;
+  data-os-map-lng=&quot;-98.5795&quot;
+  data-os-map-zoom=&quot;4&quot;
+  data-os-map-style=&quot;mapbox://styles/mapbox/light-v11&quot;
+  style=&quot;width: 900px; height: 500px;&quot;&gt;
+&lt;/os-map&gt;</pre>
+        </section>
+        <section>
+            <h2>Interactive Map</h2>
+            <p>Below is the live rendering of the Compute Map:</p>
+            <div id="map-container">
+                <os-map data-os-key="pk.eyJ1IjoiaGVnbHVuZHAiLCJhIjoiY20zM3d6ZXNwMW84MDJxcHo3MGIzeHhidyJ9.Fm5XqanmBCKyrQai8EaegA" data-os-endpoint="https://cdn.jsdelivr.net/gh/mennem-claycorp/compute-map/src/locations.json" data-os-map-lat="39.8283" data-os-map-lng="-98.5795" data-os-map-zoom="4" data-os-map-style="mapbox://styles/mapbox/light-v11"></os-map>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Mike Menne</p>
+    </footer>
+</body>
+</html>
+
+

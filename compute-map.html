@@ -83,6 +83,12 @@
             <p>API Key: <input type="text" id="map-api-key" value="pk.eyJ1IjoiaGVnbHVuZHAiLCJhIjoiY20zM3d6ZXNwMW84MDJxcHo3MGIzeHhidyJ9.Fm5XqanmBCKyrQai8EaegA"></p>
             <p>Width (px): <input type="number" id="map-width" value="900"></p>
             <p>Height (px): <input type="number" id="map-height" value="500"></p>
+            <p>Lock Map: <input type="checkbox" id="map-lock" checked></p>
+            <p>Bound West: <input type="number" id="map-bound-west" step="0.0001" value="-122.66336"></p>
+            <p>Bound South: <input type="number" id="map-bound-south" step="0.0001" value="37.492987"></p>
+            <p>Bound East: <input type="number" id="map-bound-east" step="0.0001" value="-122.250481"></p>
+            <p>Bound North: <input type="number" id="map-bound-north" step="0.0001" value="37.871651"></p>
+            <p>Refocus Map: <input type="checkbox" id="map-refocus"></p>
             <button id="update-map">Update Map</button>
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -93,6 +99,12 @@
                     const apiKeyInput = document.getElementById('map-api-key');
                     const widthInput = document.getElementById('map-width');
                     const heightInput = document.getElementById('map-height');
+                    const lockInput = document.getElementById('map-lock');
+                    const boundWestInput = document.getElementById('map-bound-west');
+                    const boundSouthInput = document.getElementById('map-bound-south');
+                    const boundEastInput = document.getElementById('map-bound-east');
+                    const boundNorthInput = document.getElementById('map-bound-north');
+                    const refocusInput = document.getElementById('map-refocus');
                     const updateButton = document.getElementById('update-map');
                     const mapContainer = document.getElementById('map-container');
                     const embedCodeBlock = document.getElementById('embed-code');
@@ -106,12 +118,12 @@
                         newMapElement.setAttribute('data-os-map-lng', lngInput.value);
                         newMapElement.setAttribute('data-os-map-zoom', zoomInput.value);
                         newMapElement.setAttribute('data-os-map-style', styleSelector.value);
-                        newMapElement.setAttribute('data-os-map-lock', 'true');
-                        newMapElement.setAttribute('data-os-map-bound-west', '-122.66336');
-                        newMapElement.setAttribute('data-os-map-bound-south', '37.492987');
-                        newMapElement.setAttribute('data-os-map-bound-east', '-122.250481');
-                        newMapElement.setAttribute('data-os-map-bound-north', '37.871651');
-                        newMapElement.setAttribute('data-os-map-refocus', 'false');
+                        newMapElement.setAttribute('data-os-map-lock', lockInput.checked);
+                        newMapElement.setAttribute('data-os-map-bound-west', boundWestInput.value);
+                        newMapElement.setAttribute('data-os-map-bound-south', boundSouthInput.value);
+                        newMapElement.setAttribute('data-os-map-bound-east', boundEastInput.value);
+                        newMapElement.setAttribute('data-os-map-bound-north', boundNorthInput.value);
+                        newMapElement.setAttribute('data-os-map-refocus', refocusInput.checked);
 
                         mapContainer.style.width = widthInput.value + 'px';
                         mapContainer.style.height = heightInput.value + 'px';
@@ -127,12 +139,12 @@
   data-os-map-lng=&quot;${lngInput.value}&quot;
   data-os-map-zoom=&quot;${zoomInput.value}&quot;
   data-os-map-style=&quot;${styleSelector.value}&quot;
-  data-os-map-lock=&quot;true&quot;
-  data-os-map-bound-west=&quot;-122.66336&quot;
-  data-os-map-bound-south=&quot;37.492987&quot;
-  data-os-map-bound-east=&quot;-122.250481&quot;
-  data-os-map-bound-north=&quot;37.871651&quot;
-  data-os-map-refocus=&quot;false&quot;
+  data-os-map-lock=&quot;${lockInput.checked}&quot;
+  data-os-map-bound-west=&quot;${boundWestInput.value}&quot;
+  data-os-map-bound-south=&quot;${boundSouthInput.value}&quot;
+  data-os-map-bound-east=&quot;${boundEastInput.value}&quot;
+  data-os-map-bound-north=&quot;${boundNorthInput.value}&quot;
+  data-os-map-refocus=&quot;${refocusInput.checked}&quot;
   style=&quot;width: ${widthInput.value}px; height: ${heightInput.value}px;&quot;&gt;
 &lt;/os-map&gt;`;
                     });

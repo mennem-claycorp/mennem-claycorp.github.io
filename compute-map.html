@@ -106,7 +106,13 @@
                         newMapElement.setAttribute('data-os-map-lng', lngInput.value);
                         newMapElement.setAttribute('data-os-map-zoom', zoomInput.value);
                         newMapElement.setAttribute('data-os-map-style', styleSelector.value);
-                        
+                        newMapElement.setAttribute('data-os-map-lock', 'true');
+                        newMapElement.setAttribute('data-os-map-bound-west', '-122.66336');
+                        newMapElement.setAttribute('data-os-map-bound-south', '37.492987');
+                        newMapElement.setAttribute('data-os-map-bound-east', '-122.250481');
+                        newMapElement.setAttribute('data-os-map-bound-north', '37.871651');
+                        newMapElement.setAttribute('data-os-map-refocus', 'false');
+
                         mapContainer.style.width = widthInput.value + 'px';
                         mapContainer.style.height = heightInput.value + 'px';
                         mapContainer.innerHTML = '';
@@ -121,6 +127,12 @@
   data-os-map-lng=&quot;${lngInput.value}&quot;
   data-os-map-zoom=&quot;${zoomInput.value}&quot;
   data-os-map-style=&quot;${styleSelector.value}&quot;
+  data-os-map-lock=&quot;true&quot;
+  data-os-map-bound-west=&quot;-122.66336&quot;
+  data-os-map-bound-south=&quot;37.492987&quot;
+  data-os-map-bound-east=&quot;-122.250481&quot;
+  data-os-map-bound-north=&quot;37.871651&quot;
+  data-os-map-refocus=&quot;false&quot;
   style=&quot;width: ${widthInput.value}px; height: ${heightInput.value}px;&quot;&gt;
 &lt;/os-map&gt;`;
                     });
@@ -137,6 +149,12 @@
   data-os-map-lng=&quot;-98.5795&quot;
   data-os-map-zoom=&quot;4&quot;
   data-os-map-style=&quot;mapbox://styles/mapbox/light-v11&quot;
+  data-os-map-lock=&quot;true&quot;
+  data-os-map-bound-west=&quot;-122.66336&quot;
+  data-os-map-bound-south=&quot;37.492987&quot;
+  data-os-map-bound-east=&quot;-122.250481&quot;
+  data-os-map-bound-north=&quot;37.871651&quot;
+  data-os-map-refocus=&quot;false&quot;
   style=&quot;width: 900px; height: 500px;&quot;&gt;
 &lt;/os-map&gt;</pre>
         </section>
@@ -144,7 +162,19 @@
             <h2>Interactive Map</h2>
             <p>Below is the live rendering of the Compute Map:</p>
             <div id="map-container">
-                <os-map data-os-key="pk.eyJ1IjoiaGVnbHVuZHAiLCJhIjoiY20zM3d6ZXNwMW84MDJxcHo3MGIzeHhidyJ9.Fm5XqanmBCKyrQai8EaegA" data-os-endpoint="https://cdn.jsdelivr.net/gh/mennem-claycorp/compute-map/src/locations.json" data-os-map-lat="39.8283" data-os-map-lng="-98.5795" data-os-map-zoom="4" data-os-map-style="mapbox://styles/mapbox/light-v11" data-os-map-lock="true"></os-map>
+                <os-map 
+                    data-os-key="pk.eyJ1IjoiaGVnbHVuZHAiLCJhIjoiY20zM3d6ZXNwMW84MDJxcHo3MGIzeHhidyJ9.Fm5XqanmBCKyrQai8EaegA" 
+                    data-os-endpoint="https://cdn.jsdelivr.net/gh/mennem-claycorp/compute-map/src/locations.json" 
+                    data-os-map-lat="39.8283" 
+                    data-os-map-lng="-98.5795" 
+                    data-os-map-zoom="4" 
+                    data-os-map-style="mapbox://styles/mapbox/light-v11" 
+                    data-os-map-lock="true" 
+                    data-os-map-bound-west="-122.66336"
+                    data-os-map-bound-south="37.492987"
+                    data-os-map-bound-east="-122.250481"
+                    data-os-map-bound-north="37.871651"
+                    data-os-map-refocus="false"></os-map>
             </div>
         </section>
     </main>
@@ -153,5 +183,3 @@
     </footer>
 </body>
 </html>
-
-

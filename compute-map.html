@@ -90,6 +90,9 @@
             <p>Bound North: <input type="number" id="map-bound-north" step="0.0001" value="37.871651"></p>
             <p>Refocus Map: <input type="checkbox" id="map-refocus"></p>
             <button id="update-map">Update Map</button>
+            <textarea id="os-map-data-input" rows="15" cols="50"></textarea>
+            <div><button id="os-map-data-submit">Set data</button></div>
+
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const styleSelector = document.getElementById('map-style-selector');
@@ -108,6 +111,8 @@
                     const updateButton = document.getElementById('update-map');
                     const mapContainer = document.getElementById('map-container');
                     const embedCodeBlock = document.getElementById('embed-code');
+                    const setDataButton = document.getElementById('os-map-data-submit');
+                    const textArea = document.getElementById('os-map-data-input');
                     let mapElement = document.querySelector('os-map');
 
                     updateButton.addEventListener('click', function() {
@@ -148,6 +153,12 @@
   style=&quot;width: ${widthInput.value}px; height: ${heightInput.value}px;&quot;&gt;
 &lt;/os-map&gt;`;
                     });
+
+                  // Set data
+                  setDataButton.addEventListener("click", function () {
+                    const value = textArea.value;
+                    mapElement.setData(JSON.parse(value));
+                  });
                 });
             </script>
         </section>

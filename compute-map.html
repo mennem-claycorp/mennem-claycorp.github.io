@@ -95,10 +95,8 @@
             <p>Viewport East: <input type="number" id="map-viewport-east" step="0.0001" value="-67.957530"></p>
             <p>Viewport North: <input type="number" id="map-viewport-north" step="0.0001" value="47.322403"></p>
             <p>Refocus Map: <input type="checkbox" id="map-refocus"></p>
+            <p>JSON Data: </p> <textarea id="os-map-data-input" rows="15" cols="50"></textarea>
             <div><button id="update-map">Update Map</button></div>
-            <h2>Set Data</h2>
-            <textarea id="os-map-data-input" rows="15" cols="50"></textarea>
-            <div><button id="os-map-data-submit">Set data</button></div>
 
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
@@ -154,6 +152,12 @@
                         mapContainer.innerHTML = '';
                         mapContainer.appendChild(newMapElement);
                         mapElement = newMapElement;
+                        setTimeout(() => {
+                          const newData = textArea.value;
+                          if (newData) {
+                            mapElement.setData(JSON.parse(newData));
+                          }
+                        }, 1000);
 
                         // Update embed code
                     embedCodeBlock.textContent = `<os-map
@@ -179,12 +183,6 @@
 >
 </os-map>`;
                     });
-
-                  // Set data
-                  setDataButton.addEventListener("click", function () {
-                    const value = textArea.value;
-                    mapElement.setData(JSON.parse(value));
-                  });
                 });
             </script>
         </section>

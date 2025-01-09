@@ -95,6 +95,7 @@
             <p>Viewport East: <input type="number" id="map-viewport-east" step="0.0001" value="-67.957530"></p>
             <p>Viewport North: <input type="number" id="map-viewport-north" step="0.0001" value="47.322403"></p>
             <p>Refocus Map: <input type="checkbox" id="map-refocus"></p>
+            <p>Map Legend: <input type="checkbox" id="map-legend" checked></p>
             <p>JSON Data: </p> <textarea id="os-map-data-input" rows="15" cols="50"></textarea>
             <div><button id="update-map">Update Map</button></div>
 
@@ -119,6 +120,7 @@
                     const viewportEastInput = document.getElementById('map-viewport-east');
                     const viewportNorthInput = document.getElementById('map-viewport-north');
                     const refocusInput = document.getElementById('map-refocus');
+                    const legendInput = document.getElementById('map-legend');
                     const updateButton = document.getElementById('update-map');
                     const mapContainer = document.getElementById('map-container');
                     const embedCodeBlock = document.getElementById('embed-code');
@@ -146,6 +148,7 @@
                         newMapElement.setAttribute('data-os-map-viewport-east', viewportEastInput.value);
                         newMapElement.setAttribute('data-os-map-viewport-north', viewportNorthInput.value);
                         newMapElement.setAttribute('data-os-map-refocus', refocusInput.checked);
+                        newMapElement.setAttribute('data-os-map-legend', legendInput.checked);
 
                         mapContainer.style.width = widthInput.value + 'px';
                         mapContainer.style.height = heightInput.value + 'px';
@@ -179,6 +182,7 @@
   data-os-map-viewport-east="${viewportEastInput.value}"
   data-os-map-viewport-north="${viewportNorthInput.value}"
   data-os-map-refocus="${refocusInput.checked}"
+  data-os-map-legend="${legendInput.checked}"
   style="width: ${widthInput.value}px; height: ${heightInput.value}px;"
 >
 </os-map>`;
